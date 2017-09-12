@@ -1,0 +1,29 @@
+body {
+    text-align: center;
+}
+
+input {
+    display: inline-block;
+    margin-top: 20px;
+    min-height: 30px;
+    font-size: 30px;
+}
+
+form {
+    text-align: center;
+    width: 100%;
+    font-size: 40px;
+}
+
+
+a {
+    font-size: 50px;
+    line-height: 60px;
+    text-decoration: none;
+    color: #000000;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: red;
+}

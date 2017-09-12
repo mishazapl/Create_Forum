@@ -1,0 +1,20 @@
+{
+    "name": "localhost/web",
+    "description": "Registration",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Misha Zapalenov",
+            "email": "mzapalenov@mail.ru"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "liw\\": ""
+        }
+    }
+}
+
