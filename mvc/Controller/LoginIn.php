@@ -18,7 +18,7 @@ class LoginIn
     public function loginIn($login,$password)
     {
         $model = new Users();
-        $model->connectDB();
+        $model->connectBD();
         $result = $model->loginIn($login,$password);
         if ($result !== false) {
             $this->setCookieLoginIn($result);
@@ -54,7 +54,7 @@ class LoginIn
     public function getPassword()
     {
         $model = new Users();
-        $model->connectDB();
+        $model->connectBD();
         $this->user = $model->queryPassword($_COOKIE['login']);
     }
 

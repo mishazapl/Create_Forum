@@ -31,6 +31,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
+<?php if ($resultArticle != null) {
+    for ($i = 0; $i < count($resultArticle); $i++) {
+        print "<h1>" . $resultArticle[$i]["HeaderArticle"] . "</h1>";
+        print "<p>" . $resultArticle[$i]["Article"] . "<p>";
+        print "<strong>Создатель " . $resultArticle[$i]["Creator"] . "<strong>";
+        print "<br>";
+        print "<p>" . $resultArticle[$i]["Data"] . "</p>";
+    }
+}
+?>
 <h1><?php print $headerArticle; ?></h1>
 <br>
 <p><?php print $article; ?></p>
@@ -38,11 +48,11 @@
 <p class="addArticle">Добавить статью новостей</p>
 <div class="add">
     <form action="<?=$_SERVER['SCRIPT_NAME']?>" method="post">
-        <p>Заголовок статьи</p>
+        <p>Заголовок статьи(не более 200 символов)</p>
         <textarea type="text" name="HeaderArticle" cols="50" autofocus></textarea>
         <br>
         <br>
-        <p>Текст статьи</p>
+        <p>Текст статьи(не более 600 символов)</p>
         <textarea name="Article" rows="7" cols="50"></textarea>
         <br>
         <br>

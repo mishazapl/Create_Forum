@@ -179,6 +179,13 @@ class Users
         return $date;
     }
 
+    /**
+     * @param $cookie
+     * @return mixed
+     *
+     * Получение привелигий юзера из базы.
+     */
+
     public function getPrivilege($cookie)
     {
         $checkPrivilege = $this->mysqli->query

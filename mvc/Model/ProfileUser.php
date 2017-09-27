@@ -25,6 +25,12 @@ class ProfileUser extends SettingModel
         }
     }
 
+    /**
+     * @param $dir
+     *
+     * Загрузка фотографии профиля
+     */
+
     public function loadPhotos($dir)
     {
         $this->autologin = $_COOKIE['login'];
@@ -115,5 +121,25 @@ class ProfileUser extends SettingModel
         $this->mysqli->close();
 
         return true;
+    }
+
+    /**
+     * @param $autologin
+     * @return mixed
+     *
+     * Получение логина юзера для использование в новостях.
+     */
+
+    public function getLogin($autologin)
+    {
+        $this->autologin = $this->mysqli->real_escape_string($autologin);
+
+        $checkPrivilege = $this->mysqli->query
+        (
+            "SELECT `login` FROM `$this->table` WHERE `autologin`='".$this->autologin."' "
+        );
+        $checkPrivilege = $checkPrivilege->fetch_array();
+        $this->mysqli->close();
+        return $checkPrivilege['login'];
     }
 }
