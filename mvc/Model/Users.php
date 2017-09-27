@@ -17,7 +17,7 @@ class Users
     private $autologin;
     private $privilege;
 
-    public function connectDB()
+    public function connectBD()
     {
         @$this->mysqli = new \mysqli($this->host,$this->user,$this->pass,$this->bd);
 
