@@ -21,7 +21,7 @@ if (
     $loginUp->emptyRegForm();
 }
 
-if (!empty($_COOKIE['login']) && !empty($_COOKIE['password'])) {
+if (!empty($_COOKIE['login'])) {
     $refUser = new liw\mvc\Controller\LoginUp();
     $refUser->getPassword();
     $checkRealUser = $refUser->refPassword();

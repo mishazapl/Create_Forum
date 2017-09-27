@@ -14,7 +14,8 @@ class Users
     private $loginUser;
     private $passwordUser;
     private $ageUser;
-    private $number = 0;
+    private $autologin;
+    private $privilege;
 
     public function connectDB()
     {
@@ -39,13 +40,14 @@ class Users
         /**
          * Изменить соль перед использованием!!! В двух местах!!!
          */
+        $this->autologin = bin2hex(random_bytes(100));
+
         $this->loginUser    = $this->mysqli->real_escape_string($login);
         $this->passwordUser = $this->mysqli->real_escape_string(crypt($password, 'InEnEfRvTlER'));
         $checkData = $this->mysqli->query
         (
-            "SELECT `login`,`password` FROM `$this->table` 
-             WHERE  `login`='".$this->loginUser."' 
-             AND    `password`='".$this->passwordUser."' "
+            "SELECT `autologin` FROM `users` WHERE `login`=\"$login\"
+             AND `password`=\"$this->passwordUser\" "
 
         );
         $realData = $checkData->fetch_array();
@@ -56,61 +58,6 @@ class Users
             return false;
         }
     }
-
-    /**
-     * @param $login
-     * @param $number
-     *
-     * Установка нового числа в бд пользователю.
-     */
-
-    public function setNumber($login,$number)
-    {
-        $this->loginUser  = $this->mysqli->real_escape_string($login);
-        $this->mysqli->query
-        (
-            "UPDATE `users` SET `number`=\"$number\" 
-             WHERE `login`=\"$login\" "
-
-        );
-        $this->mysqli->close();
-    }
-
-    /**
-     * @param $login
-     * @param $password
-     *
-     * Получение уникального числа в базе у пользователя!
-     */
-
-    public function prepareGetNumber($login,$password)
-    {
-        $this->loginUser    = $this->mysqli->real_escape_string($login);
-        $this->passwordUser = $this->mysqli->real_escape_string($password);
-        $result = Users::sendGetNumber();
-        return $result;
-
-    }
-
-    private function sendGetNumber()
-    {
-        $checkData = $this->mysqli->query
-        (
-            "SELECT `number` FROM `$this->table` 
-             WHERE  `login`='".$this->loginUser."' 
-             AND    `password`='".$this->passwordUser."' "
-
-        );
-        if ($checkData !== false) {
-            $realData = $checkData->fetch_array();
-            return (int)$realData['number'];
-        } else {
-            print 'Произошла неизвестная ошибка, пожалуйста авторизуйтесь!';
-            exit();
-        }
-
-    }
-
 
     /**
      * @param $log
@@ -124,7 +71,7 @@ class Users
         $this->loginUser = $this->mysqli->real_escape_string($log);
         $checkPass = $this->mysqli->query
         (
-          "SELECT `password` FROM `$this->table` WHERE `login`='".$this->loginUser."' "
+          "SELECT `autologin` FROM `$this->table` WHERE `autologin`='".$this->loginUser."' "
         );
         $realPass = $checkPass->fetch_array();
         $this->mysqli->close();
@@ -166,17 +113,22 @@ class Users
         /**
          * Изменить соль перед использованием!!! В двух местах!!!
          */
-        $this->passwordUser = crypt($this->pass, 'InEnEfRvTlER');
+        $this->passwordUser = crypt($pass, 'InEnEfRvTlER');
         $this->ageUser      = $age;
-        Users::prepareDataRegistration();
+        $this->prepareDataRegistration();
     }
 
     private function prepareDataRegistration()
     {
+        $this->autologin = bin2hex(random_bytes(100));
+
+        $this->loginUser    = $this->mysqli->real_escape_string($this->loginUser);
         $this->passwordUser = $this->mysqli->real_escape_string($this->passwordUser);
         $this->ageUser      = $this->mysqli->real_escape_string($this->ageUser);
-        $this->number       = $this->mysqli->real_escape_string($this->number);
-        Users::userRegistration();
+        $this->autologin    = $this->mysqli->real_escape_string($this->autologin);
+        $this->privilege    = $this->mysqli->real_escape_string('user');
+
+        $this->userRegistration();
     }
 
     private function userRegistration()
@@ -188,25 +140,53 @@ class Users
         login,
         password,
         data,
-        number
+        autologin,
+        privilege
         ) 
         VALUES 
         (
         \"$this->loginUser\",
         \"$this->passwordUser\",
         \"$this->ageUser\",
-        \"$this->number\"
+        \"$this->autologin\",
+        \"$this->privilege\"
         )"
         );
         $this->mysqli->close();
+        /**
+         * Установка данных в таблицу для профиля.
+         */
+        $Profile = new ProfileUser();
+        $Profile->connectBD();
+        $checkInstall = $Profile->prepareDataBeforeReg
+        (
+            $this->loginUser,
+            $this->ageUser,
+            0,
+            $this->autologin,
+            $this->privilege
+        );
+        if ($checkInstall === true) {
+            unset($Profile);
+        }
     }
 
     public function dataUser()
     {
         $date = [
-            'login'    => $this->loginUser,
-            'password' => $this->passwordUser
+            'login'    => $this->autologin,
         ];
         return $date;
+    }
+
+    public function getPrivilege($cookie)
+    {
+        $checkPrivilege = $this->mysqli->query
+        (
+            "SELECT `privilege` FROM `$this->table` WHERE `autologin`='".$cookie."' "
+        );
+        $checkPrivilege = $checkPrivilege->fetch_array();
+        $this->mysqli->close();
+        return $checkPrivilege;
     }
 }

@@ -25,7 +25,7 @@ class LoginUp
                 &&
                 !empty($this->password)
             ) {
-                LoginUp::checkLength();
+                $this->checkLength();
             }
     }
 
@@ -44,7 +44,7 @@ class LoginUp
             &&
             mb_strlen($this->password) < '32'
         ) {
-            LoginUp::getAge();
+            $this->getAge();
         } else {
             print 'Не менее 3 символов - login?Password не более 32';
         }
@@ -81,7 +81,7 @@ class LoginUp
                 }
             }
             $this->age = getAge($year,$month,$day);
-            LoginUp::checkAge();
+            $this->checkAge();
         } else {
             print 'Вы допустили ошибку во время укания даты рождения!';
         }
@@ -99,7 +99,7 @@ class LoginUp
             (int)$this->age < 80
         ) {
             $this->age = $_POST['age'];
-            LoginUp::sendDataRegistration();
+            $this->sendDataRegistration();
         } elseif ((int)$this->age > 80) {
             print 'You old';
         } elseif ((int)$this->age < 5) {
@@ -127,28 +127,17 @@ class LoginUp
             $model->getDataRegistration($this->password,$this->age);
             $this->user     = $model->dataUser();
             $this->login    = $this->user['login'];
-            $this->password = $this->user['password'];
-            LoginUp::installCookie();
+            $this->installCookie();
         }
     }
 
     public function installCookie()
     {
-        if (
-            !empty($this->login)
-            &&
-            !empty($this->password)
-        ) {
+        if (!empty($this->login)) {
             setcookie
             (
                 "login",
                 "$this->login",
-                time()+3680
-            );
-            setcookie
-            (
-                "password",
-                "$this->password",
                 time()+3680
             );
             print 'Вы успешно зарегистрировались!';
@@ -167,16 +156,16 @@ class LoginUp
     {
         $model = new Users();
         $model->connectDB();
-        $this->user = $model->queryPassword(htmlspecialchars($_COOKIE['login']));
+        $this->user = $model->queryPassword($_COOKIE['login']);
     }
 
     public function refPassword()
     {
-        if ($this->user['password'] === $_COOKIE['password']) {
+        if ($this->user['login'] === $_COOKIE['login']) {
             return true;
         } else {
-            print 'У вас поддельные куки!';
-            exit();
+            print 'Войдите заново в систему!';
+            return false;
         }
     }
 }
