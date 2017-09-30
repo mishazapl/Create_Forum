@@ -6,7 +6,8 @@ namespace liw\mvc\Model;
  * Class SettingModel
  * @package liw\mvc\Model
  *
- * Настройки для всех моделей, обязательно наследовать!
+ * Настройки для всех моделей, обязательно наследовать.
+ * Начало каждой модели должно выглядеть именно так.
  */
 
 abstract class SettingModel

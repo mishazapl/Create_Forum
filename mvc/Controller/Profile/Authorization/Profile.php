@@ -1,8 +1,8 @@
 <?php
 
-namespace liw\mvc\Controller;
+namespace liw\mvc\Controller\Profile\Authorization;
 
-use liw\mvc\Model\ProfileUser;
+use liw\mvc\Model\Profile\ProfileUser;
 
 class Profile
 {

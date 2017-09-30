@@ -9,7 +9,7 @@ require __DIR__ . '/../vendor/autoload.php';
 // Controller
 
 if (!empty($_COOKIE['login'])) {
-    $refUser = new liw\mvc\Controller\LoginIn();
+    $refUser = new liw\mvc\Controller\Profile\Authorization\LoginIn();
     $refUser->getPassword();
     $checkRealUser = $refUser->refPassword();
 } else {
@@ -23,13 +23,13 @@ if (
     &&
     !empty($_POST['pass'])
 ) {
-    $refUser = new liw\mvc\Controller\LoginIn();
+    $refUser = new liw\mvc\Controller\Profile\Authorization\LoginIn();
     $refUser->loginIn($_POST['log'],$_POST['pass']);
 }
 
 if (isset($_POST['exit'])) {
     if (!empty($_COOKIE['login'])) {
-        $profile = new liw\mvc\Controller\Profile();
+        $profile = new liw\mvc\Controller\Profile\Authorization\Profile();
         $profile->exitUser($_COOKIE['login']);
     } else {
         print 'Вы уже вышли!';
@@ -43,7 +43,7 @@ if (isset($_POST['exit'])) {
  */
 
 if (isset($_POST['load'])) {
-    $profile = new liw\mvc\Controller\Profile();
+    $profile = new liw\mvc\Controller\Profile\Authorization\Profile();
     $profile->checkFormatPhoto();
 }
 
@@ -53,15 +53,15 @@ if (isset($_POST['load'])) {
  * Если зарегистрирован показать информацию о профиле.
  */
 if ($checkRealUser !== true) {
-    require_once __DIR__ . '/../mvc/View/LoginIn.php';
+    require_once __DIR__ . '/../mvc/View/Profile/LoginIn.php';
 } else {
-    $profile = new \liw\mvc\Controller\Profile();
+    $profile = new \liw\mvc\Controller\Profile\Authorization\Profile();
     $profile = $profile->getDataUser($_COOKIE['login']);
     $logUser = $profile['Login'];
     $ageUser = $profile['Age'];
     $photoUser = $profile['LinkPhoto'];
     $privilege = $profile['privilege'];
     unset($profile);
-    require_once __DIR__ . '/../mvc/View/Profile.php';
+    require_once __DIR__ . '/../mvc/View/Profile/Profile.php';
 }
 

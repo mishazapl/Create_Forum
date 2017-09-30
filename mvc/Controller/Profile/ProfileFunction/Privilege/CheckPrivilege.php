@@ -1,8 +1,8 @@
 <?php
 
-namespace liw\mvc\Controller;
+namespace liw\mvc\Controller\Profile\ProfileFunction\Privilege;
 
-use liw\mvc\Model\Users;
+use liw\mvc\Model\Profile\Users;
 
 class CheckPrivilege
 {

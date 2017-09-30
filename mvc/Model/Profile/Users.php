@@ -1,6 +1,8 @@
 <?php
 
-namespace liw\mvc\Model;
+namespace liw\mvc\Model\Profile;
+
+use liw\mvc\Model\SettingModel;
 
 class Users
    extends SettingModel // !!!

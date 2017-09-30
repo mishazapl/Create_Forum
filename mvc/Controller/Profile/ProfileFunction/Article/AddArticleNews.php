@@ -1,12 +1,14 @@
 <?php
 
-namespace liw\mvc\Controller;
+namespace liw\mvc\Controller\Profile\ProfileFunction\Article;
 
+/**
+ * Переопределять первую строчку блока use на используемую модель.
+ */
+use liw\mvc\Model\Article\ArticleNews;
+use liw\mvc\Model\Profile\ProfileUser;
 
-use liw\mvc\Model\ArticleNews;
-use liw\mvc\Model\ProfileUser;
-
-class AddArticleNews
+class AddArticleNews extends SettingArticle
 {
     private $creator;
     private $dataPubl;
@@ -27,6 +29,13 @@ class AddArticleNews
         $this->dataPubl = date("d/m/Y");
     }
 
+    /**
+     * @param $headerArticle
+     * @param $article
+     *
+     * Создать статью, объект переопределять в дочерним классе.
+     */
+
     public function addArticle($headerArticle, $article)
     {
         $ArticleNews = new ArticleNews();
@@ -39,6 +48,12 @@ class AddArticleNews
             $this->dataPubl
         );
     }
+
+    /**
+     * @return mixed
+     *
+     * Получение статей, объект переопределять в дочернем классе
+     */
 
     public function getArticle()
     {

@@ -1,8 +1,8 @@
 <?php
 
-namespace liw\mvc\Controller;
+namespace liw\mvc\Controller\Profile\Authorization;
 
-use liw\mvc\Model\Users;
+use liw\mvc\Model\Profile\Users;
 
 class LoginUp
 {
@@ -116,14 +116,14 @@ class LoginUp
     private function sendDataRegistration()
     {
         $model = new Users();
-        $model->connectDB();
+        $model->connectBD();
         $checkLogin = $model->refLogin($this->login);
         if ($checkLogin === true) {
             print 'Логин занят <br>';
             print '<a href="LoginUp.php" style="font-size: 40px;">Обновить страницу!</a>';
             exit();
         } else {
-            $model->connectDB();
+            $model->connectBD();
             $model->getDataRegistration($this->password,$this->age);
             $this->user     = $model->dataUser();
             $this->login    = $this->user['login'];
@@ -155,7 +155,7 @@ class LoginUp
     public function getPassword()
     {
         $model = new Users();
-        $model->connectDB();
+        $model->connectBD();
         $this->user = $model->queryPassword($_COOKIE['login']);
     }
 

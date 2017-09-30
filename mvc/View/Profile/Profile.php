@@ -1,5 +1,5 @@
 <?php if (isset($_COOKIE['login'])):
-    $refUser = new liw\mvc\Controller\LoginIn();
+    $refUser = new liw\mvc\Controller\Profile\Authorization\LoginIn();
     $refUser->getPassword();
     $checkRealUser = $refUser->refPassword(); ?>
     <!doctype html>

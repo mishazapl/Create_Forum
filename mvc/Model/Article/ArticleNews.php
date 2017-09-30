@@ -1,9 +1,8 @@
 <?php
 
-namespace liw\mvc\Model;
+namespace liw\mvc\Model\Article;
 
-
-class ArticleNews extends SettingModel
+class ArticleNews extends SettingArticle
 {
     private $host  = 'localhost';
     private $user  = 'root';
@@ -73,7 +72,7 @@ class ArticleNews extends SettingModel
         $this->article = $this->mysqli->query
         (
             "SELECT `HeaderArticle`, `Article`, `Creator`, `Data` 
-             FROM `$this->table` ORDER BY `id` ASC LIMIT 5"
+             FROM `$this->table` ORDER BY `id` DESC LIMIT 5"
         );
         $this->article = $this->article->fetch_all(MYSQLI_ASSOC);
         $this->mysqli->close();
