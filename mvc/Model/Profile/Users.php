@@ -198,4 +198,29 @@ class Users
         $this->mysqli->close();
         return $checkPrivilege;
     }
+
+    /**
+     * @param $nickname
+     * @param $privilege
+     *
+     * Обновление привелегий.
+     */
+
+    public function updatePrivilege($nickname, $privilege)
+    {
+        $check = $this->mysqli->query
+        (
+            "UPDATE `$this->table` SET `privilege`=\"$privilege\"
+             WHERE `login`=\"$nickname\" "
+        );
+
+        if ($this->mysqli->affected_rows != 0) {
+            $this->mysqli->close();
+            print "<div class='SuccessPrivilege'>Пользователю: $nickname установлена привелегия: $privilege</div>";
+        } else {
+            $this->mysqli->close();
+            print '<div class="falsePrivilege">Что-то пошло не так, попробуйте еще раз,<br>
+                   возможно вы указали неверный логин<br>либо привилегия уже установлена.</div>';
+        }
+    }
 }

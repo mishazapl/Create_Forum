@@ -5,10 +5,10 @@ use liw\mvc\Model\SettingModel;
 
 class ProfileUser extends SettingModel
 {
-    private $host  = 'localhost';
-    private $user  = 'root';
-    private $pass  = '';
-    private $bd    = 'user';
+    private $host = 'localhost';
+    private $user = 'root';
+    private $pass = '';
+    private $bd = 'user';
     private $mysqli;
     private $table = 'ProfileUser';
     private $loginUser;
@@ -19,7 +19,7 @@ class ProfileUser extends SettingModel
 
     public function connectBD()
     {
-        @$this->mysqli = new \mysqli($this->host,$this->user,$this->pass,$this->bd);
+        @$this->mysqli = new \mysqli($this->host, $this->user, $this->pass, $this->bd);
 
         if (mysqli_connect_errno()) {
             print 'Неизвестная ошибка на сайте.';
@@ -82,7 +82,7 @@ class ProfileUser extends SettingModel
      * Подготовка и установка данных в отдельную таблицу после регистрации.
      */
 
-    public function prepareDataBeforeReg($login,$age, $photo,$autologin, $privilege)
+    public function prepareDataBeforeReg($login, $age, $photo, $autologin, $privilege)
     {
         $this->loginUser = $login;
         $this->ageUser = $age;
@@ -90,11 +90,11 @@ class ProfileUser extends SettingModel
         $this->autologin = $autologin;
         $this->privilege = $privilege;
 
-        $this->loginUser      = $this->mysqli->real_escape_string($this->loginUser);
-        $this->ageUser        = $this->mysqli->real_escape_string($this->ageUser);
-        $this->linkPhoto      = $this->mysqli->real_escape_string($this->linkPhoto);
-        $this->autologin      = $this->mysqli->real_escape_string($this->autologin);
-        $this->privilege      = $this->mysqli->real_escape_string($this->privilege);
+        $this->loginUser = $this->mysqli->real_escape_string($this->loginUser);
+        $this->ageUser = $this->mysqli->real_escape_string($this->ageUser);
+        $this->linkPhoto = $this->mysqli->real_escape_string($this->linkPhoto);
+        $this->autologin = $this->mysqli->real_escape_string($this->autologin);
+        $this->privilege = $this->mysqli->real_escape_string($this->privilege);
 
         $this->installDataAfterRegistr();
     }
@@ -138,10 +138,28 @@ class ProfileUser extends SettingModel
 
         $checkPrivilege = $this->mysqli->query
         (
-            "SELECT `login` FROM `$this->table` WHERE `autologin`='".$this->autologin."' "
+            "SELECT `login` FROM `$this->table` WHERE `autologin`='" . $this->autologin . "' "
         );
         $checkPrivilege = $checkPrivilege->fetch_array();
         $this->mysqli->close();
         return $checkPrivilege['login'];
+    }
+
+    /**
+     * @param $nickname
+     * @param $privilege
+     *
+     * Обновление привелегий.
+     */
+
+    public function updatePrivilege($nickname, $privilege)
+    {
+        $check = $this->mysqli->query
+        (
+            "UPDATE `$this->table` SET `privilege`=\"$privilege\"
+             WHERE `login`=\"$nickname\" "
+        );
+
+        $this->mysqli->close();
     }
 }
