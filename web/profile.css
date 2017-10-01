@@ -1,0 +1,61 @@
+.login {
+	font-size: 2em;
+	display: block;
+	font-weight: 900;
+}
+
+.main h1 {
+	font-size: 4em;
+	color: #5557ed;
+	margin-bottom: 60px;
+	margin-top: 50px;
+}
+
+.avatar {
+	margin-bottom: 30px;
+}
+
+.bg-i-p {
+	max-width: 100%;
+	width: 300px;
+	height: auto;
+	height: 300px;
+	display: inline-block;
+}
+
+.bg-i-p img {
+	background-size: cover;
+	width: 100%;
+	height: auto;
+}
+
+.exit {
+	margin-bottom: 50px;
+	margin-top: 50px;
+	width: 30%;
+	height: 3em;
+	transition: all 0.5s;
+}
+
+.exit:hover {
+	cursor: pointer;
+	border: #0ce0fc;
+	background-color: #0ce0fc;
+	border-radius: 0.5em;
+	transition: all 0.5s;
+	color: black;
+	font-weight: 900;
+	font-size: 1.1em;
+}
+
+.privilege {
+	font-size: 2em;
+	transition: all 0.5s;
+}
+
+.privilege:hover {
+	font-size: 2.5em;
+	color: #bf1ab4;
+	font-weight: 900;
+	transition: all 0.5s;
+}

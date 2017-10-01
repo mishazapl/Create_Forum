@@ -1,0 +1,60 @@
+.header {
+	font-size: 2em;
+	width: 80%;
+	text-align: center;
+	display: inline-block;
+}
+
+.main-head {
+	margin-top: 20px;
+	margin-bottom: 30px;
+	color: #1cbaff;
+}
+
+.article {
+	font-size: 1em;
+	width: 60%;
+	text-align: center;
+	display: inline-block;
+}
+
+.add {
+  display: none;
+  z-index: 999;
+  position: relative;
+}
+.addArticle:hover {
+  text-decoration: underline;
+  color: #4cae4c;
+  cursor: pointer;
+}
+.hides {
+  display: none;
+  z-index: 999;
+  position: relative;
+}
+.hides:hover {
+  text-decoration: underline;
+  color: #4cae4c;
+  cursor: pointer;
+}
+
+.addArticle  {
+  display: inline-block;
+  text-align: center;
+  margin-top: 25px;
+  margin-bottom: 0;
+}
+
+.add input {
+	display: inline-block;
+	text-align: center;
+}
+
+a#prevSites{
+    margin-top: 5px;
+    font-size: 1.3em;
+    font-weight: 700;
+    margin-left: 0;
+    display: block;
+}
