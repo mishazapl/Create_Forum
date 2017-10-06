@@ -1,4 +1,5 @@
 <?php
+session_start();
 ob_start();
 
 // Подключение файлов
@@ -11,7 +12,6 @@ require __DIR__ . '/../vendor/autoload.php';
  */
 $headerArticle = null;
 $article       = null;
-$privilege     = null;
 
 // Model
 
@@ -25,12 +25,15 @@ $resultArticle = $getArticle->getArticle();
 // View
 
 if (!empty($_COOKIE['login'])) {
-   $privilege = \liw\mvc\Controller\Profile\ProfileFunction\Privilege\CheckPrivilege::getPermission($_COOKIE['login']);
+   if (array_key_exists('privilege', $_SESSION)) {
+   } else {
+       $_SESSION['privilege'] = \liw\mvc\Controller\Profile\ProfileFunction\Privilege\CheckPrivilege::getPermission($_COOKIE['login']);
+   }
 }
 
 if (isset($_POST['addArticle'])) {
     $addArticleNews  = new liw\mvc\Controller\Profile\ProfileFunction\Article\AddArticleNews();
-    $addArticleNews->checkPrivilege($privilege);
+    @$addArticleNews->checkPrivilege($_SESSION['privilege']);
     $addArticleNews->getCreator($_COOKIE['login']);
     $addArticleNews->addArticle($_POST['HeaderArticle'], $_POST['Article']);
 }

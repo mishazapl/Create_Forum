@@ -20,7 +20,7 @@
             <a href="index.php" id="prevSites">Вернуться на главную</a>
         </div>
         <div class="col-12 text-center">
-        <?php if ($privilege === 'admin'): ?>
+        <?php if (@$_SESSION['privilege'] === 'admin'): ?>
 <p class="addArticle">Добавить статью новостей</p>
 <div class="add">
     <form action="<?=$_SERVER['SCRIPT_NAME']?>" method="post">

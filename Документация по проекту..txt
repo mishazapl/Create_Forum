@@ -1,0 +1,18 @@
+На каждой странице должно присутствовать session_start();
+
+Подключение файлов и вывод ошибок.
+
+// Подключение файлов
+error_reporting(E_ALL);
+ini_set('display_errors',1);
+require __DIR__ . '/../vendor/autoload.php';
+
+
+На каждой страницы должны проверяться куки и устанавливаться в случае отсутствие привилегий в сессию.
+
+if (!empty($_COOKIE['login'])) {
+   if (array_key_exists('privilege', $_SESSION)) {
+   } else {
+       $_SESSION['privilege'] = \liw\mvc\Controller\Profile\ProfileFunction\Privilege\CheckPrivilege::getPermission($_COOKIE['login']);
+   }
+}

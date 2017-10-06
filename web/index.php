@@ -1,4 +1,5 @@
 <?php
+session_start();
 ob_start();
 
 // Подключение файлов
@@ -60,7 +61,7 @@ if ($checkRealUser !== true) {
     $logUser = $profile['Login'];
     $ageUser = $profile['Age'];
     $photoUser = $profile['LinkPhoto'];
-    $privilege = $profile['privilege'];
+    $_SESSION['privilege'] = $profile['privilege'];
     unset($profile);
     require_once __DIR__ . '/../mvc/View/Profile/Profile.php';
 }

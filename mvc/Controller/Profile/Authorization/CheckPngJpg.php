@@ -29,7 +29,8 @@ class CheckPngJpg extends SettingCheckImage
             ||
             $this->fileType == 'image/png'
         ) {
-            return (string)$this->uploadDir . $_FILES["loadFile"]["name"];
+            var_dump($this->fileType);
+            return $this->uploadDir . $_FILES["loadFile"]["name"];
         } else {
             print '<div style="font-size: 40px; color: mediumvioletred;">Файл не должен привышать размер 2мб!<br>
                        Файл не должен привышать размер 1900px / 1200px</div>';

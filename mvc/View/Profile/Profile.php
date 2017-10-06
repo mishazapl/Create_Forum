@@ -28,7 +28,7 @@
         <br>
         <span class="login">Дата рождения: <?php print $ageUser; ?> </span>
         <br>
-        <span class="login">Уровень ваших привелегий: <?php print $privilege; ?> </span>
+        <span class="login">Уровень ваших привелегий: <?php print $_SESSION['privilege']; ?> </span>
         <br>
         <span class="login avatar">Ваш аватар: </span><br>
             <?php if ($photoUser == '0'): ?>
@@ -40,7 +40,7 @@
            <div class="bg-i-p"><img src="<?php print $photoUser; ?>" alt="YourPhoto"></div>
                 <br>
            <?php endif; ?>
-            <?php if ($privilege === 'admin'): ?>
+            <?php if ($_SESSION['privilege'] === 'admin'): ?>
             <a href="Article.php" class="privilege">Добавить/Посмотреть статьи</a>
                 <br>
                 <a href="ManageUser.php" class="privilege">Установить привилегии.</a>

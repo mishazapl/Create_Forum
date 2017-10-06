@@ -59,6 +59,7 @@ class Profile
             "$login",
             time()-5000
         );
+        unset($_SESSION['privilege']);
         print "<div style='font-size: 30px; color: aquamarine; text-align: center;'>Досвидание!</div>";
         print "<br><div style='text-align: center;'><a href='index.php' style='font-size: 20px; color: chartreuse;'>Обновить страницу</a></div>";
         exit();

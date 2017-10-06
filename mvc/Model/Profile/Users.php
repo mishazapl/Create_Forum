@@ -2,6 +2,7 @@
 
 namespace liw\mvc\Model\Profile;
 
+use Couchbase\Exception;
 use liw\mvc\Model\SettingModel;
 
 class Users
@@ -21,7 +22,7 @@ class Users
 
     public function connectBD()
     {
-        @$this->mysqli = new \mysqli($this->host,$this->user,$this->pass,$this->bd);
+        @$this->mysqli = new \mysqli($this->host, $this->user, $this->pass, $this->bd);
 
         if (mysqli_connect_errno()) {
             print 'Неизвестная ошибка на сайте.';
@@ -216,7 +217,7 @@ class Users
 
         if ($this->mysqli->affected_rows != 0) {
             $this->mysqli->close();
-            print "<div class='SuccessPrivilege'>Пользователю: $nickname установлена привелегия: $privilege</div>";
+            print "<div class='SuccessPrivilege'>Пользователю: $nickname установлена привилегия: $privilege</div>";
         } else {
             $this->mysqli->close();
             print '<div class="falsePrivilege">Что-то пошло не так, попробуйте еще раз,<br>

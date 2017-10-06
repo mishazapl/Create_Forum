@@ -15,7 +15,7 @@
 <div class="container">
   <div class="row">
      <div class="mainForm col-12">
-<form action="<?=$_SERVER['SCRIPT_NAME']?>" method="post">
+<form action="<?php $_SERVER['SCRIPT_NAME']?>" method="post">
     <span class="pointer">Login</span>
     <br>
     <input type="text" name="log" class="data">
